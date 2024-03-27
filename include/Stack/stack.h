@@ -3,6 +3,7 @@
 #include <math.h>
 
 #include <iostream>
+#include <memory>
 
 namespace Stack_Lib {
 template <class T>
@@ -10,7 +11,7 @@ class TStack {
  protected:
   int size;
   int top;
-  T* mas;
+  std::unique_ptr<T[]> mas;
 
  public:
   TStack(int n = 1);
@@ -33,7 +34,6 @@ template <class T>
 std::ostream& operator<<(std::ostream& ostr, const TStack<T>& A) {
   for (int i = 0; i < A.top; i++) {
     ostr << A.mas[i] << "\n";
-    ostr << endl;
   }
   return ostr;
 }
@@ -61,18 +61,7 @@ T TStack<T>::Get() {
 }
 
 template <class T>
-TStack<T>::TStack(int n) {
-  if (n < 0)
-    throw "Error size";
-  else if (n == 0) {
-    size = 0;
-    top = 0;
-  } else {
-    size = n;
-    mas = new T[n];
-    top = 0;
-  }
-}
+TStack<T>::TStack(int n) : size(n), top(0), mas(new T[n]) {}
 
 template <class T>
 void const TStack<T>::printstack() {
@@ -80,16 +69,13 @@ void const TStack<T>::printstack() {
 }
 
 template <class T>
-TStack<T>::TStack(const TStack<T>& stack) {
-  this.size = stack.size;
-  T* mas = new T[this.size];
-  for (int i = 0; i < this.size i++) mas[i] = stack.mas[i];
-  this->top = stack.top;
+TStack<T>::TStack(const TStack<T>& stack)
+    : size(stack.size), top(stack.top), mas(new T[stack.size]) {
+  for (int i = 0; i < size; i++) mas[i] = stack.mas[i];
 }
 
 template <class T>
 TStack<T>::~TStack() {
-  delete[] mas;
   top = 0;
   size = 0;
 }
@@ -122,10 +108,9 @@ T const TStack<T>::TopView() {
 template <class T>
 TStack<T>& TStack<T>::operator=(const TStack<T>& a) {
   if (this != &a) {
-    delete[] mas;
     top = a.top;
     size = a.size;
-    mas = new T[size];
+    mas.reset(new T[size]);
     for (int i = 0; i < size; i++) mas[i] = a.mas[i];
   }
   return *this;
