@@ -1,7 +1,8 @@
-#include "Stack/stack.h"
+#include "stack/stack.h"
 #include "gtest/gtest.h"
 
-// ASSERT_NO_THROW(TDynamicMatrix<int> m(5));
+using namespace Stack_Lib;
+
 TEST(TStack, can_get_size) {
   TStack<int> a(5);
   EXPECT_EQ(5, a.GetSize());
