@@ -13,7 +13,48 @@
 using namespace Stack_Lib;
 
 namespace Postfix_Lib {
+template <class T>
+class TStack {
+ private:
+  int size;
+  int top;
+  std::unique_ptr<T[]> mas;
+
+ public:
+  TStack(int n = 1);
+  ~TStack();
+  void Push(T a);
+  T Get();
+  bool IsEmpty() const;
+};
+
+template <class T>
+TStack<T>::TStack(int n) : size(n), top(0), mas(new T[n]) {}
+
+template <class T>
+TStack<T>::~TStack() {}
+
+template <class T>
+void TStack<T>::Push(T a) {
+  if (top >= size) throw "StackFull";
+  this->mas[top] = a;
+  top++;
+}
+
+template <class T>
+T TStack<T>::Get() {
+  if (IsEmpty()) throw "StackEmpty";
+  top--;
+  return mas[top];
+}
+
+template <class T>
+bool TStack<T>::IsEmpty() const {
+  return (top == 0);
+}
+
 class TArithmeticExpression {
+ private:
   std::string infix;
   std::string postfix;
   std::vector<int> kolcifr;
@@ -45,18 +86,19 @@ int TArithmeticExpression::Priority(const char prior) {
       throw "Error not operation";
   }
 }
-TArithmeticExpression::TArithmeticExpression(std::string infx) {
-  infix = infx;
-  postfix = "";
+
+TArithmeticExpression::TArithmeticExpression(std::string infx)
+    : infix(infx), postfix(""), kolcifr() {
   int count = 0;
-  for (char c : infix)
+  for (char c : infix) {
     if (c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' ||
-        c == '7' || c == '8' || c == '9' || c == '0' || c == '.')
+        c == '7' || c == '8' || c == '9' || c == '0' || c == '.') {
       count++;
-    else {
+    } else {
       if (count != 0) kolcifr.push_back(count);
       count = 0;
     }
+  }
   if (count != 0) kolcifr.push_back(count);
 }
 
@@ -101,6 +143,7 @@ void TArithmeticExpression::ConvertToPostfix() {
     postfix += stackItem;
   }
 }
+
 double TArithmeticExpression::Calculate() {
   TStack<double> st(1000);
   double a, b;
