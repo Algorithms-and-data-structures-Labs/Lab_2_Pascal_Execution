@@ -1,9 +1,10 @@
-#pragma once
+#ifndef __LIST_H__
+#define __LIST_H__
 #include <iostream>
 
 #include "List/TNode.h"
-using namespace std;
 
+namespace List_Lib {
 template <class T>
 class TList {
  protected:
@@ -166,3 +167,5 @@ bool TList<T>::IsEnd() {
   if (pCurr->pNext == pStop) return true;
   return false;
 }
+}
+#endif

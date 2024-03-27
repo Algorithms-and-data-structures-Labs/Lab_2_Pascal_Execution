@@ -1,12 +1,13 @@
-#pragma once
+#ifndef __TABLE_H__
+#define __TABLE_H__
 #include <iostream>
 #include <locale>
 #include <string>
 #include <vector>
 
-using namespace std;
-
 #define TabMaxSize 100
+
+namespace Table_Lib {
 template <typename TKey, typename TValue>
 class Table {
  protected:
@@ -29,11 +30,13 @@ class Table {
   virtual int GoNext(void) = 0;
   virtual TKey GetKey(void) const = 0;
   virtual TValue GetValuePtr(void) const = 0;
-  friend ostream& operator<<(ostream& os, Table& tab) {
-    cout << "Table printing" << endl;
+  friend std::ostream& operator<<(std::ostream& os, Table& tab) {
+    std::cout << "Table printing" << endl;
     for (tab.Reset(); !tab.IsTabEnded(); tab.GoNext()) {
       os << " Key: " << tab.GetKey() << " Val: " << *tab.GetValuePtr() << endl;
     }
     return os;
   }
 };
+}
+#endif

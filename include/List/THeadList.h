@@ -1,7 +1,10 @@
-#pragma once
+#ifndef __HEADLIST_H__
+#define __HEADLIST_H__
 #include "List/TList.h"
-using namespace std;
 
+using namespace List_Lib;
+
+namespace HeadList_Lib {
 template <class T>
 class THeadList : public TList<T> {
  protected:
@@ -45,3 +48,5 @@ void THeadList<T>::DeleteFirst() {
   delete temp;
   this->length--;
 }
+}
+#endif

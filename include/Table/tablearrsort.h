@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __TABLEARRSORT_H__
+#define __TABLEARRSORT_H__
 #include <table/tablerec.h>
 
 #include <algorithm>
@@ -6,6 +7,9 @@
 #include <locale>
 #include <string>
 
+using namespace Table_Lib;
+
+namespace TableArr_Lib {
 template <typename TKey, typename TValue>
 class SortArrayTable : public Table<TKey, TValue> {
  private:
@@ -14,7 +18,7 @@ class SortArrayTable : public Table<TKey, TValue> {
     TKey key;
     TValue* value;
   };
-  vector<TabRec> data{};
+  std::vector<TabRec> data{};
 
  public:
   size_t size() const noexcept { return data.size(); }
@@ -69,3 +73,5 @@ class SortArrayTable : public Table<TKey, TValue> {
 
   TValue GetValuePtr() const override { return *data[currentIndex].value; }
 };
+}
+#endif

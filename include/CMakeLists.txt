@@ -7,3 +7,6 @@ set(STACK_HEADERS "${stack_headers}" PARENT_SCOPE)
 file(GLOB_RECURSE table_headers table/*.h table/*.hpp)
 set(TABLE_HEADERS "${table_headers}" PARENT_SCOPE)
 
+file(GLOB_RECURSE postfix_headers postfix/*.h postfix/*.hpp)
+set(POSTFIX_HEADERS "${postfix_headers}" PARENT_SCOPE)
+
