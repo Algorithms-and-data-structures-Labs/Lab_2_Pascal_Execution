@@ -130,5 +130,5 @@ TStack<T>& TStack<T>::operator=(const TStack<T>& a) {
   }
   return *this;
 }
-}
+}  // namespace Stack_Lib
 #endif

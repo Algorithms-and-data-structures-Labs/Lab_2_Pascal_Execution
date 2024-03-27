@@ -1,5 +1,5 @@
-#include "gtest/gtest.h"
 #include "Stack/stack.h"
+#include "gtest/gtest.h"
 
 using namespace Stack_Lib;
 

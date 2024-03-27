@@ -1,6 +1,7 @@
+#include <string>
+
 #include "gtest/gtest.h"
 #include "postfix/postfix.h"
-#include <string>
 
 using namespace Postfix_Lib;
 

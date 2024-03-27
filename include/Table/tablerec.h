@@ -38,5 +38,5 @@ class Table {
     return os;
   }
 };
-}
+}  // namespace Table_Lib
 #endif

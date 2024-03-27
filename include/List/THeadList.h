@@ -48,5 +48,5 @@ void THeadList<T>::DeleteFirst() {
   delete temp;
   this->length--;
 }
-}
+}  // namespace HeadList_Lib
 #endif

@@ -167,5 +167,5 @@ bool TList<T>::IsEnd() {
   if (pCurr->pNext == pStop) return true;
   return false;
 }
-}
+} // namespace List_Lib
 #endif

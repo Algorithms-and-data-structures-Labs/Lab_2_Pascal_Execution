@@ -73,5 +73,5 @@ class SortArrayTable : public Table<TKey, TValue> {
 
   TValue GetValuePtr() const override { return *data[currentIndex].value; }
 };
-}
+}  // namespace TableArr_Lib
 #endif

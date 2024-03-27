@@ -1,12 +1,14 @@
 #ifndef __POSTFIX_H__
 #define __POSTFIX_H__
 
-#include "stack/stack.h"
+#include <math.h>
+#include <stdio.h>
+
+#include <iostream>
 #include <vector>
 #include <string>
-#include <stdio.h>
-#include <math.h>
-#include <iostream>
+
+#include "stack/stack.h"
 
 using namespace Stack_Lib;
 
@@ -142,5 +144,5 @@ double TArithmeticExpression::Calculate() {
   }
   return st.Get();
 }
-}
+}  // namespace Postfix_Lib
 #endif
