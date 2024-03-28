@@ -1,5 +1,4 @@
-#ifndef __TABLE_H__
-#define __TABLE_H__
+#pragma once
 #include <iostream>
 #include <locale>
 #include <string>
@@ -7,7 +6,7 @@
 
 #define TabMaxSize 100
 
-namespace Table_Lib {
+namespace TableLib {
 template <typename TKey, typename TValue>
 class Table {
  protected:
@@ -38,5 +37,4 @@ class Table {
     return os;
   }
 };
-}  // namespace Table_Lib
-#endif
+}  // namespace TableLib

@@ -2,7 +2,7 @@
 
 #include "gtest/gtest.h"
 
-using namespace TableArr_Lib;
+using namespace TableArrLib;
 
 TEST(SortArrayTable, Inserttest1) {
   SortArrayTable<int, int> arrtab;

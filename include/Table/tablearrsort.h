@@ -1,5 +1,4 @@
-#ifndef __TABLEARRSORT_H__
-#define __TABLEARRSORT_H__
+#pragma once
 #include <table/tablerec.h>
 
 #include <algorithm>
@@ -7,11 +6,9 @@
 #include <locale>
 #include <string>
 
-using namespace Table_Lib;
-
-namespace TableArr_Lib {
+namespace TableArrLib {
 template <typename TKey, typename TValue>
-class SortArrayTable : public Table<TKey, TValue> {
+class SortArrayTable : public TableLib::Table<TKey, TValue> {
  private:
   size_t currentIndex;
   struct TabRec {
@@ -73,5 +70,4 @@ class SortArrayTable : public Table<TKey, TValue> {
 
   TValue GetValuePtr() const override { return *data[currentIndex].value; }
 };
-}  // namespace TableArr_Lib
-#endif
+}  // namespace TableArrLib

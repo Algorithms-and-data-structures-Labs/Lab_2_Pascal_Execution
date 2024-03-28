@@ -3,7 +3,7 @@
 #include "gtest/gtest.h"
 #include "postfix/postfix.h"
 
-using namespace Postfix_Lib;
+using namespace PostfixLib;
 
 TEST(Postfix, can_create_calculator) {
   ASSERT_NO_THROW(TArithmeticExpression c("((12+(2-5+3+1))"));
