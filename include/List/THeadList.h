@@ -1,12 +1,9 @@
-#ifndef __HEADLIST_H__
-#define __HEADLIST_H__
+#pragma once
 #include "List/TList.h"
 
-using namespace List_Lib;
-
-namespace HeadList_Lib {
+namespace HeadListLib {
 template <class T>
-class THeadList : public TList<T> {
+class THeadList : public ListLib::TList<T> {
  protected:
   TNode<T>* pHead;
 
@@ -48,5 +45,4 @@ void THeadList<T>::DeleteFirst() {
   delete temp;
   this->length--;
 }
-}  // namespace HeadList_Lib
-#endif
+}  // namespace HeadListLib

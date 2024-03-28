@@ -1,11 +1,10 @@
-#ifndef __STACK_H__
-#define __STACK_H__
+#pragma once
 #include <math.h>
 
 #include <iostream>
 #include <memory>
 
-namespace Stack_Lib {
+namespace StackLib {
 template <class T>
 class TStack {
  protected:
@@ -115,5 +114,4 @@ TStack<T>& TStack<T>::operator=(const TStack<T>& a) {
   }
   return *this;
 }
-}  // namespace Stack_Lib
-#endif
+}  // namespace StackLib

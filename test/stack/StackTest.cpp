@@ -1,7 +1,7 @@
 #include "Stack/stack.h"
 #include "gtest/gtest.h"
 
-using namespace Stack_Lib;
+using namespace StackLib;
 
 TEST(TStack, can_get_size) {
   TStack<int> a(5);
