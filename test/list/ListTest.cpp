@@ -1,5 +1,5 @@
-#include "gtest/gtest.h"
 #include "List/TList.h"
+#include "gtest/gtest.h"
 
 using namespace ListLib;
 
