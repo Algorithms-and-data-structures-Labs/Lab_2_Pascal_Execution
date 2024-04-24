@@ -1,169 +1,116 @@
 #pragma once
+#include <cstdlib>
+#include <ctime>
 #include <iostream>
-
-#include "List/TNode.h"
+#include <vector>
 
 namespace ListLib {
-template <class T>
-class TList {
- protected:
-  TNode<T>* pFirst;
-  TNode<T>* pCurr;
-  TNode<T>* pPrev;
-  TNode<T>* pLast;
-  TNode<T>* pStop;
-  int length;
+template <typename T>
+struct Node {
+  T value;
+  std::vector<Node<T>*> next;
+  int lvl;
 
- public:
-  TList();
-  ~TList();
-  int GetLength() { return length; }
-  bool IsEmpty();
-  void InsertFirst(T item);
-  void InsertPCurrent(T item);
-  void InsertNCurrent(T item);
-  void InsertLast(T item);
-  void DeleteFirst();
-  void DeleteCurrent();
-  void GoNext();
-  void Reset();
-  bool IsEnd();
-  T GetCurrentItem();
-  void SetCurrentItem(T item) { pCurr->val = item; }
+  Node(const T& val, int l) : value(val), lvl(l) { next.resize(l); }
 };
-template <class T>
-TList<T>::TList() {
-  pFirst = nullptr;
-  pCurr = nullptr;
-  pPrev = nullptr;
-  pLast = nullptr;
-  pStop = nullptr;
-  length = 0;
-}
 
-template <class T>
-TList<T>::~TList() {}
-
-template <class T>
-bool TList<T>::IsEmpty() {
-  if (length == 0) return true;
-  return false;
-}
-
-template <class T>
-void TList<T>::InsertFirst(T item) {
-  TNode<T>* nNode = new TNode<T>;
-  nNode->val = item;
-  nNode->pNext = pFirst;
-  pFirst = nNode;
-  if (length == 0) {
-    pLast = pFirst;
-    pStop = new TNode<T>;
-    pStop->pNext = nullptr;
+template <typename T>
+class SkipList {
+ public:
+  SkipList(int maxHeight) : maxHeight(maxHeight), Empty(true) {
+    srand(time(nullptr));
+    head = new Node<T>(T(), maxHeight);  // Head node with maximum level
   }
-  length++;
-}
 
-template <class T>
-void TList<T>::InsertLast(T item) {
-  TNode<T>* nNode = new TNode<T>;
-  nNode->val = item;
-  nNode->pNext = nullptr;
-  if (length == 0) {
-    pFirst = nNode;
-    pStop = new TNode<T>;
-    pStop->pNext = nullptr;
-  } else {
-    pLast->pNext = nNode;
-  }
-  pLast = nNode;
-  length++;
-}
-
-template <class T>
-void TList<T>::InsertPCurrent(T item) {
-  TNode<T>* nNode = new TNode<T>;
-  nNode->val = item;
-  if (pCurr == pFirst) {
-    nNode->pNext = pFirst;
-    pFirst = nNode;
-  } else {
-    pPrev->pNext = nNode;
-    nNode->pNext = pCurr;
-  }
-  length++;
-}
-
-template <class T>
-void TList<T>::InsertNCurrent(T item) {
-  TNode<T>* nNode = new TNode<T>;
-  nNode->val = item;
-  if (pCurr == pLast) {
-    nNode->pNext = nullptr;
-    pLast->pNext = nNode;
-    pLast = nNode;
-  } else {
-    nNode->pNext = pCurr->pNext;
-    pCurr->pNext = nNode;
-  }
-  length++;
-}
-
-template <class T>
-void TList<T>::DeleteFirst() {
-  if (pFirst != nullptr) {
-    TNode<T>* temp = pFirst;
-    pFirst = pFirst->pNext;
-    delete temp;
-    length--;
-    if (length == 0) {
-      pLast = nullptr;
-      pStop = nullptr;
+  ~SkipList() {
+    Node<T>* current = head;
+    while (current != nullptr) {
+      Node<T>* next = current->next[0];
+      delete current;
+      current = next;
     }
   }
-}
 
-template <class T>
-void TList<T>::DeleteCurrent() {
-  if (pCurr != nullptr && pFirst != nullptr) {
-    if (pCurr == pFirst) {
-      DeleteFirst();
-    } else {
-      pPrev->pNext = pCurr->pNext;
-      pCurr = pCurr->pNext;
-      length--;
+  void insert(const T& value) {
+    std::vector<Node<T>*> update(maxHeight, nullptr);
+    Node<T>* current = head;
+
+    for (int i = maxHeight - 1; i >= 0; --i) {
+      while (current->next[i] != nullptr && current->next[i]->value < value)
+        current = current->next[i];
+      update[i] = current;
     }
-    if (pCurr == pLast) {
-      pLast = pPrev;
-    }
-    if (pCurr == pStop) {
-      pStop = pPrev;
+
+    current = current->next[0];
+
+    if (current == nullptr || current->value != value) {
+      int level = randomlvl();
+      if (level > maxHeight) {
+        for (int i = maxHeight; i < level; ++i) update[i] = head;
+        maxHeight = level;
+      }
+      Node<T>* newNode = new Node<T>(value, level);
+      for (int i = 0; i < level; ++i) {
+        newNode->next[i] = update[i]->next[i];
+        update[i]->next[i] = newNode;
+      }
     }
   }
-}
 
-template <class T>
-T TList<T>::GetCurrentItem() {
-  if (length == 0) throw "len=0";
-  if (pCurr == nullptr) return T();
-  return pCurr->val;
-}
+  void remove(const T& value) {
+    std::vector<Node<T>*> update(maxHeight, nullptr);
+    Node<T>* current = head;
 
-template <class T>
-void TList<T>::GoNext() {
-  pPrev = pCurr;
-  pCurr = pCurr->pNext;
-}
+    for (int i = maxHeight - 1; i >= 0; --i) {
+      while (current->next[i] != nullptr && current->next[i]->value < value)
+        current = current->next[i];
+      update[i] = current;
+    }
 
-template <class T>
-void TList<T>::Reset() {
-  pCurr = pFirst;
-  pPrev = nullptr;
-}
+    current = current->next[0];
 
-template <class T>
-bool TList<T>::IsEnd() {
-  if (pCurr->pNext == pStop) return true;
-  return false;
-}
+    if (current != nullptr && current->value == value) {
+      for (int i = 0; i < maxHeight; ++i) {
+        if (update[i]->next[i] != current) break;
+        update[i]->next[i] = current->next[i];
+      }
+      delete current;
+      while (maxHeight > 1 && head->next[maxHeight - 1] == nullptr) --maxHeight;
+      if (head->next[0] == nullptr) Empty = true;
+    }
+  }
+
+  bool find(const T& value) const {
+    Node<T>* current = head;
+
+    for (int i = maxHeight - 1; i >= 0; --i) {
+      while (current->next[i] != nullptr && current->next[i]->value < value)
+        current = current->next[i];
+    }
+
+    current = current->next[0];
+
+    return current != nullptr && current->value == value;
+  }
+
+  void print() const {
+    Node<T>* current = head->next[0];
+    while (current != nullptr) {
+      std::cout << current->value << " ";
+      current = current->next[0];
+    }
+    std::cout << std::endl;
+  }
+
+ private:
+  int maxHeight;
+  Node<T>* head;
+  bool Empty;
+
+  int randomlvl() {
+    int level = 1;
+    while (rand() % 2 == 0 && level < maxHeight) ++level;
+    return level;
+  }
+};
 }  // namespace ListLib
