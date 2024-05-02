@@ -149,7 +149,7 @@ class HList {
   }
 
   void addSublistToElementWithValue(const T& value, HList<T>& sublist) {
-    hlistNode<T>* node = findElement(*this , value);
+    hlistNode<T>* node = findElement(*this, value);
     if (node) {
       addSublistAfter(node, sublist);
       sublist.root_ = nullptr;

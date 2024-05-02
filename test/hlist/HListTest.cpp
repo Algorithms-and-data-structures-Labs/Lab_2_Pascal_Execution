@@ -122,14 +122,14 @@ TEST(HList, PascalProgramHierarchy2) {
   programHierarchy.addSublistToElementWithValue("var", level4);
   HList<std::string> level5;
   level5.pushBack("num1 := 5;");
-  level5.pushBack("Write(\"Введите четное целое число: \");");
+  level5.pushBack("Write(\"Enter an even integer: \");");
   level5.pushBack("Read(num2);");
-  level5.pushBack("Write(\"Введите вещественное число: \");");
+  level5.pushBack("Write(\"Enter a real number: \");");
   level5.pushBack("if (b mod 2 = 0) then");
   level5.pushBack("  Res := (num1 - num2 * 5 div 2) / (d * 2);");
-  level5.pushBack("  Write(\"Результат = \", Res);");
+  level5.pushBack("  Write(\"The result = \", Res);");
   level5.pushBack("else");
-  level5.pushBack("  Write(\"Неверный ввод\");");
+  level5.pushBack("  Write(\"Incorrect input\");");
   programHierarchy.addSublistToElementWithValue("begin", level5);
   auto root = programHierarchy.getRoot();
   std::cout << "Pascal Program Hierarchy:" << std::endl;
