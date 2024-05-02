@@ -11,7 +11,7 @@ struct hlistNode {
   hlistNode<T>* child;
   hlistNode<T>* next;
   hlistNode<T>* prev;
-  hlistNode<T>* sublist;  // Добавлен указатель на первый элемент подсписка
+  hlistNode<T>* sublist;
   T value;
 
   hlistNode(const T& val)
@@ -19,7 +19,7 @@ struct hlistNode {
         child(nullptr),
         next(nullptr),
         prev(nullptr),
-        sublist(nullptr),  // Инициализация указателя на подсписок
+        sublist(nullptr),
         value(val) {}
 };
 
