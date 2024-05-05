@@ -30,6 +30,9 @@ class PriorityQueue {
   }
 
   T Dequeue() {
+    if (data.size() == 0) {
+      throw "queue is empty";
+    }
     int li = data.size() - 1;
     T frontItem = data[0];
     data[0] = data[li];
@@ -53,6 +56,9 @@ class PriorityQueue {
   }
 
   T Peek() {
+    if (data.size() == 0) {
+      throw "queue is empty";
+    }
     T frontItem = data[0];
     return frontItem;
   }

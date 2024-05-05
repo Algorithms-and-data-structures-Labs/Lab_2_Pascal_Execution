@@ -6,7 +6,6 @@ using namespace std;
 using namespace HListLib;
 
 int main() {
-
   HList<int> list;
   list.pushBack(1);
   list.pushBack(2);
@@ -18,8 +17,7 @@ int main() {
   sublist.pushBack(6);
   sublist.pushBack(7);
   sublist.pushBack(8);
-  list.addSublistToElementWithValue(
-      3, sublist);
+  list.addSublistToElementWithValue(3, sublist);
 
   cout << "Main List:" << endl;
   list.traverse(list.getRoot());
