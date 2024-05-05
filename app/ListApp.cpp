@@ -18,7 +18,7 @@ int main() {
   skipList.print();
 
   int searchValue = 30;
-  cout << "find elem " << searchValue << " ...." <<endl;
+  cout << "find elem " << searchValue << " ...." << endl;
   if (skipList.find(searchValue)) {
     cout << "elem " << searchValue << " is found in skiplist." << endl;
   } else {
@@ -26,7 +26,7 @@ int main() {
   }
 
   searchValue = 15;
-  cout << "find elem " << searchValue << " ...." <<endl;
+  cout << "find elem " << searchValue << " ...." << endl;
   if (skipList.find(searchValue)) {
     cout << "elem " << searchValue << " is found in skiplist." << endl;
   } else {
