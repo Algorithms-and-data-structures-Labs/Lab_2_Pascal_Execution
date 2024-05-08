@@ -12,3 +12,6 @@ set(POSTFIX_HEADERS "${postfix_headers}" PARENT_SCOPE)
 
 file(GLOB_RECURSE hlist_headers HierarchicalList/*.h HierarchicalList/*.hpp)
 set(HLIST_HEADERS "${hlist_headers}" PARENT_SCOPE)
+
+file(GLOB_RECURSE binheap_headers BinHeap/*.h BinHeap/*.hpp)
+set(BINHEAP_HEADERS "${binheap_headers}" PARENT_SCOPE)
